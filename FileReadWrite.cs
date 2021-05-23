@@ -4,13 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using CsvHelper;
+using System.Globalization;
 
 namespace AddressBookSystem
 {
     class FileReadWrite
     {
         static String FilePath = @"C:\Users\Radha\source\repos\AddressBookSystem\AddressBookSystem\Address.txt";
+       static  string FilePathCsv = @"C:\Users\Radha\source\repos\AddressBookSystem\AddressBookSystem\Csvdata.csv";
 
+        //  static String FilePathCsv = @"C:\Users\Radha\source\repos\AddressBookSystem\AddressBookSystem\ReadWriteCsv.csv";
         public static void WriteTxtFile(List<Person> persons)
         {
             if (File.Exists(FilePath))
@@ -26,7 +30,7 @@ namespace AddressBookSystem
                         streamWriter.WriteLine("Email   : " + person.email);
                         streamWriter.WriteLine("State   : " + person.state);
                         streamWriter.WriteLine("PhoneNum: " + person.phoneNumber);
-                       
+
                     }
                     streamWriter.Close();
                 }
@@ -55,8 +59,39 @@ namespace AddressBookSystem
                 Console.WriteLine("No such file exists");
             }
         }
+
+        public static void writeIntoCsvFile(List<Person> contacts)
+        {
+            if (File.Exists(FilePathCsv))
+            {
+                using (StreamWriter streamWriter = File.AppendText(FilePathCsv))
+                {
+                    foreach (Person contact in contacts)
+                    {
+                        streamWriter.WriteLine(contact.firstName + "," + contact.lastName + "," + contact.city + "," + contact.state + "," + contact.phoneNumber);
+                    }
+                }
+            }
+        }
+
+        public static void ReadContactsInCSVFile()
+        {
+            if (File.Exists(FilePathCsv))
+            {
+                string[] csv = File.ReadAllLines(FilePathCsv);
+                foreach (string csValues in csv)
+                {
+                    string[] column = csValues.Split(',');
+                    foreach (string CSValues in column)
+                    {
+                        Console.WriteLine(CSValues);
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("No such file exists");
+            }
+        }
     }
 }
-
-
-
