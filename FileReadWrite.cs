@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using CsvHelper;
 using System.Globalization;
+using Newtonsoft.Json;
 
 namespace AddressBookSystem
 {
@@ -13,6 +14,7 @@ namespace AddressBookSystem
     {
         static String FilePath = @"C:\Users\Radha\source\repos\AddressBookSystem\AddressBookSystem\Address.txt";
        static  string FilePathCsv = @"C:\Users\Radha\source\repos\AddressBookSystem\AddressBookSystem\Csvdata.csv";
+        static String filePathJson = @"C:\Users\prattii\Desktop\AddBookSysteam\AddressBook\AddressBook\JsonFile.json";
 
         //  static String FilePathCsv = @"C:\Users\Radha\source\repos\AddressBookSystem\AddressBookSystem\ReadWriteCsv.csv";
         public static void WriteTxtFile(List<Person> persons)
@@ -86,6 +88,39 @@ namespace AddressBookSystem
                     {
                         Console.WriteLine(CSValues);
                     }
+                }
+            }
+            else
+            {
+                Console.WriteLine("No such file exists");
+            }
+        }
+        public static void WriteContactsInJSONFile(List<Person> contacts)
+        {
+            if (File.Exists(filePathJson))
+            {
+                JsonSerializer jsonSerializer = new JsonSerializer();
+                using (StreamWriter streamWriter = new StreamWriter(filePathJson))
+                using (JsonWriter writer = new JsonTextWriter(streamWriter))
+                {
+                    jsonSerializer.Serialize(writer, contacts);
+                }
+                Console.WriteLine("Writting Contacts to the JSON file");
+            }
+            else
+            {
+                Console.WriteLine("No such file exists");
+            }
+        }
+
+        public static void ReadContactsFromJSONFile()
+        {
+            if (File.Exists(filePathJson))
+            {
+                IList<Person> contactsRead = JsonConvert.DeserializeObject<IList<Person>>(File.ReadAllText(filePathJson));
+                foreach (Person contact in contactsRead)
+                {
+                    Console.Write(contact.ToString());
                 }
             }
             else
