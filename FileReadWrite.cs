@@ -14,7 +14,7 @@ namespace AddressBookSystem
     {
         static String FilePath = @"C:\Users\Radha\source\repos\AddressBookSystem\AddressBookSystem\Address.txt";
        static  string FilePathCsv = @"C:\Users\Radha\source\repos\AddressBookSystem\AddressBookSystem\Csvdata.csv";
-        static String filePathJson = @"C:\Users\prattii\Desktop\AddBookSysteam\AddressBook\AddressBook\JsonFile.json";
+        static String filePathJson = @"C:\Users\Radha\source\repos\AddressBookSystem\AddressBookSystem\jsonfile.json";
 
         //  static String FilePathCsv = @"C:\Users\Radha\source\repos\AddressBookSystem\AddressBookSystem\ReadWriteCsv.csv";
         public static void WriteTxtFile(List<Person> persons)
